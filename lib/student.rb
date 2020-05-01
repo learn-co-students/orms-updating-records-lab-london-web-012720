@@ -24,12 +24,16 @@ class Student
     DB[:conn].execute(sql)
   end
 
+
+
   def self.drop_table
     sql = <<-SQL 
       DROP TABLE students
       SQL
     DB[:conn].execute(sql)
   end
+
+
 
   def save 
     if self.id 
@@ -43,11 +47,15 @@ class Student
     end
   end
 
+
+
   def self.create(name,grade)
     student = Student.new(name,grade)
     student.save 
     student
   end
+
+
 
   def self.new_from_db(row)
     id = row [0]
@@ -55,6 +63,8 @@ class Student
     grade = row[2]
     self.new(name, grade, id)
   end 
+
+
 
   def self.find_by_name(name)
     sql = <<-SQL 
@@ -65,6 +75,8 @@ class Student
     end.first
   end
 
+
+  
   def update 
     sql = "UPDATE students SET name = ?, grade = ? WHERE id = ?"
     DB[:conn].execute(sql,self.name,self.grade, self.id)
